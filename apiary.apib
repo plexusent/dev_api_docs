@@ -1,0 +1,114 @@
+HOST: http://developers.gowatchit.com
+
+--- GoWatchIt Developers API v1 ---
+---
+This API provides access to Go WatchIts database of movies, and
+information about movie availability. Availibility information is available
+for formats such as DVD rentals, online streaming, theaters, and outdoor screenings.
+This API also provides links to watch, rent, or purchase movies online through
+WatchIt's partners.
+
+This API is new and currently supports the following features:
+
+* Search by Movie Title
+
+* Retreiving Availability Information.
+    Availabilities are data sets describing which providers (e.g. Netflix) currently offer the movie, and in what formats (SD, HD, etc.). They also give a URL to each provider's version of the movie)
+
+For access to this API, you'll need an API key, available from mailto:info@plexusentertainment.com GoWatchit.
+
+To use this API, perform GET requests to the "search" and "availabilities" actions of this controller. See documentation below.
+
+All results are returned in JSON format.
+---
+
+--
+Search
+The following resources explain how to search for a GoWatchIt ID. You need to determine a GoWatchitId to do anything useful with the API.
+An API user will search for a term with this method, sending a URL as a GET request. The general usage is as follows:  
+    
+    /api/(API-KEY)/search/(FIELD)/(TOKEN)
+
+- FIELD The field to search. Currently, only "title" is supported.
+- TOKEN A search term. Movies (fully/partially) matching this term will be found.
+- JSON formatted array of movies which match the search term. Each movie is an object with {id, mrqe_id, title, year}
+  
+Search for a movie by its title
+Using full or partial matches, this action will find movies with similar titles to the term given. 
+Many titles match more than one movie, as is the case with sequels and remakes. 
+These results provide a unique movie id for each matching title. This movie id is then useful for other API actions.
+--
+GET /api/API-KEY/search/title/toy%20story
+< 200
+< Content-Type: application/json
+[   {"id":10594,"title":"Toy Story","year":1995},
+    {"id":50960,"title":"Toy Story 3","year":2010},
+    {"id":31434,"title":"Toy Story 2","year":1999}
+]
+
+
+--
+Availabilities
+An API user will supply the id of a movie, and this method will return a JSON object describing
+where this movie can be watched or ordered, as well as what formats and prices are available.
+Using a movie id obtained from the search method of the API, an availability request is made:
+
+    /api/(API-KEY)/availabilities/(MOVIE-ID)
+
+- MOVIE-ID ID of the movie to fetch availability information about.
+
+Returns a JSON object with categories as object keys, and providers, such as iTunes as the values.
+Each provider will contain an array of available movie formats, such as SD, HD, Rent, Buy, and so forth.
+--
+GET /api/(API-KEY)/availabilities/10594
+< 200
+< Content-Type: application/json
+{   "dvd":  [{  
+        "provider":"Netflix Mail",
+        "category":"dvd_bluray",
+        "url":"http://developers.gowatchit.com/widget/movies/toy-story-10594/watch_now?availability=1180066&partner=28&provider=1",
+        "purchase":null,
+        "rental":null,
+        "more_info":"",
+        "availabilities":[{"delivery_format":"mail","buyable":false,"format_desc":null,"price":null,"free":null,"sale_info":""}]}],
+    "streaming":[{
+        "provider":"iTunes",
+        "category":"online_ondemand",
+        "url":"http://developers.gowatchit.com/widget/movies/toy-story-10594/watch_now?availability=1576765&partner=28&provider=3",
+        "purchase":"Buy from $14.99",
+        "rental":"Rent from $2.99",
+        "more_info":"SD / LC / HD",
+        "availabilities":[{
+            "delivery_format":"stream",
+            "buyable":false,
+            "format_desc":"SD",
+            "price":"2.99",
+            "free":false,
+            "sale_info":"rent for $2.99"},
+        {   "delivery_format":"stream",
+            "buyable":false,
+            "format_desc":"LC","price":"2.99",
+            "free":false,"sale_info":"rent for $2.99"},
+        {   "delivery_format":"stream",
+            "buyable":false,"format_desc":"HD",
+            "price":"3.99","free":false,
+            "sale_info":"rent for $3.99"},
+        {   "delivery_format":"stream",
+            "buyable":true,
+            "format_desc":"SD",
+            "price":"14.99",
+            "free":false,
+            "sale_info":"buy for $14.99"}]},
+    {   "provider":"VUDU",
+        "category":"online_ondemand",
+        "url":"http://developers.gowatchit.com/widget/movies/toy-story-10594/watch_now?availability=1762369&partner=28&provider=7",
+        "purchase":"Buy from $17.99","rental":"Rent from $2.00","more_info":"SD / HD / HDX",
+        "availabilities":[{
+            "delivery_format":"stream",
+            "buyable":false,
+            "format_desc":"SD",
+            "price":"2.00",
+            "free":false,
+            "sale_info":"rent for $2.00"}]},
+    ]}]}
+
