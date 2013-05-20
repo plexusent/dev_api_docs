@@ -15,7 +15,7 @@ This API is new and currently supports the following features:
 * Retreiving Availability Information.
     Availabilities are data sets describing which providers (e.g. Netflix) currently offer the movie, and in what formats (SD, HD, etc.). They also give a URL to each provider's version of the movie)
 
-For access to this API, you'll need an API key, available from mailto:info@plexusentertainment.com GoWatchit.
+For access to this API, you'll need an API key, available from info@gowatchit.com.
 
 To use this API, perform GET requests to the "search" and "availabilities" actions of this controller. See documentation below.
 
@@ -27,7 +27,7 @@ Search
 The following resources explain how to search for a GoWatchIt ID. You need to determine a GoWatchitId to do anything useful with the API.
 An API user will search for a term with this method, sending a URL as a GET request. The general usage is as follows:  
     
-    /api/(API-KEY)/search/(FIELD)/(TOKEN)
+    /api/{API-KEY}/search/{FIELD}/{TOKEN}
 
 - FIELD The field to search. Currently, only "title" is supported.
 - TOKEN A search term. Movies (fully/partially) matching this term will be found.
@@ -38,7 +38,7 @@ Using full or partial matches, this action will find movies with similar titles 
 Many titles match more than one movie, as is the case with sequels and remakes. 
 These results provide a unique movie id for each matching title. This movie id is then useful for other API actions.
 --
-GET /api/API-KEY/search/title/toy%20story
+GET /api/{API-KEY}/search/title/toy%20story
 < 200
 < Content-Type: application/json
 [   {"id":10594,"title":"Toy Story","year":1995},
@@ -53,14 +53,14 @@ An API user will supply the id of a movie, and this method will return a JSON ob
 where this movie can be watched or ordered, as well as what formats and prices are available.
 Using a movie id obtained from the search method of the API, an availability request is made:
 
-    /api/(API-KEY)/availabilities/(MOVIE-ID)
+    /api/{API-KEY}/availabilities/{MOVIE-ID}
 
 - MOVIE-ID ID of the movie to fetch availability information about.
 
 Returns a JSON object with categories as object keys, and providers, such as iTunes as the values.
 Each provider will contain an array of available movie formats, such as SD, HD, Rent, Buy, and so forth.
 --
-GET /api/(API-KEY)/availabilities/10594
+GET /api/{API-KEY}/availabilities/10594
 < 200
 < Content-Type: application/json
 {   "dvd":  [{  
