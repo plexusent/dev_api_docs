@@ -498,4 +498,35 @@ DELETE /api/v2/user/queue
     "message": "Movie is not in user's queue"
 }
 
+--
+Quick Alerts
+The following resource allows a user to get a quick alert for a specific movie with only an email address.
 
+An account is not required. If a user does have an account the system will elegantly handle by adding to the move to that user's queue:  
+    
+    /api/v2/quickalerts/ENDPOINT.json
+
+--
+
+
+Create a quick alert.  
+
+Required parameters:
+
+*  **email** - user's email
+*  **movieId** the GoWatchIt movieId that the user wants to use. 
+
+A user will be sent a confirmation email. The response will include an upgrade URL, which can be displayed to the user if relevant.  
+
+POST /api/v2/quickalerts
+< 200
+< Content-Type: application/json
+{
+    "upgrade_path": "http://gowatchit.com/quick_alerts/upgrade/blablabla"
+}
++++++
+< 422
+< Content-Type: application/json
+{   
+    "message": "Email address not valid"
+}
