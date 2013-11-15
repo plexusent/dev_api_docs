@@ -10,7 +10,11 @@ GoWatchIt's partners.
 
 This API is new and currently supports the following features:
 
-* Search by Movie Title
+* Authenticate users
+
+* Create Quick Alerts
+
+* Add movies to users' queues. 
 
 * Retreiving Availability Information.
     Availabilities are data sets describing which providers (e.g. Netflix) currently offer the movie, and in what formats (SD, HD, etc.). They also give a URL to each provider's version of the movie)
@@ -23,6 +27,13 @@ All results are returned in JSON format.
 
 All Requests should be in the format /api/v2/ENDPOINT?apikey=bla&otherparams=BLA
 ---
+
+
+--
+GWI Movie IDs. 
+
+Almost every endpoint will require a GoWatchIt (GWI) movie id. For limited use, the IDs can be given to you by GWI. If you require wide spread usage, you can use the weighted search endpoint. 
+--
 
 --
 Movies
