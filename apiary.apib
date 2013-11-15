@@ -1,12 +1,12 @@
-HOST: http://developers.gowatchit.com
+HOST: http://api.gowatchit.com
 
 --- GoWatchIt Developers API v2 ---
 ---
-This API provides access to Go WatchIts database of movies, and
-information about movie availability. Availibility information is available
+The API provides access to the GoWatchIt database of movies and
+information about movie availabilities. Availibility information is available
 for formats such as DVD rentals, online streaming, theaters, and outdoor screenings.
 This API also provides links to watch, rent, or purchase movies online through
-WatchIt's partners.
+GoWatchIt's partners.
 
 This API is new and currently supports the following features:
 
@@ -15,100 +15,487 @@ This API is new and currently supports the following features:
 * Retreiving Availability Information.
     Availabilities are data sets describing which providers (e.g. Netflix) currently offer the movie, and in what formats (SD, HD, etc.). They also give a URL to each provider's version of the movie)
 
-For access to this API, you'll need an API key, available from mailto:info@plexusentertainment.com GoWatchit.
+For access to this API, you'll need an API key, available from mailto:info@gowatchit.com.
 
-To use this API, perform GET requests to the "search" and "availabilities" actions of this controller. See documentation below.
+All requests against the API must include an API key. You may include it either as a URL param, or in a request header as X-api-key. 
 
 All results are returned in JSON format.
+
+All Requests should be in the format /api/v2/ENDPOINT?apikey=bla&otherparams=BLA
 ---
 
 --
-Search
-The following resources explain how to search for a GoWatchIt ID. You need to determine a GoWatchitId to do anything useful with the API.
-An API user will search for a term with this method, sending a URL as a GET request. The general usage is as follows:  
+Movies
+The following resource deals with movie meta data and availability. The general usage is as follows:  
     
-    /api/(API-KEY)/search/(FIELD)/(TOKEN)
+    /api/v2/movie/action/:optional-id.json
 
-- FIELD The field to search. Currently, only "title" is supported.
-- TOKEN A search term. Movies (fully/partially) matching this term will be found.
-- JSON formatted array of movies which match the search term. Each movie is an object with {id, mrqe_id, title, year}
-  
-Search for a movie by its title
-Using full or partial matches, this action will find movies with similar titles to the term given. 
-Many titles match more than one movie, as is the case with sequels and remakes. 
-These results provide a unique movie id for each matching title. This movie id is then useful for other API actions.
 --
-GET /api/API-KEY/search/title/toy%20story
+Get a list of featured content arranged by categories. The response movie data will reflect queue states for a logged in user.  
+GET /api/v2/movies/categories
 < 200
 < Content-Type: application/json
-[   {"id":10594,"title":"Toy Story","year":1995},
-    {"id":50960,"title":"Toy Story 3","year":2010},
-    {"id":31434,"title":"Toy Story 2","year":1999}
-]
+{
+    "categories": [
+        {
+          "title": "Currently Popular",
+          "movies": [
+              {
+                "id": 266448,
+                "synopsis": "This second gathering of childhood friends finds Lenny (Adam Sandler) moving his family back to the same small town where he grew up. Now, the grown ups (Sandler, Kevin James, Chris Rock, and David Spade) are the ones learning from their kids as the last day of school and its antics and surprises take center stage. Dennis Dugan returns to direct.",
+                "title": "Grown Ups 2",
+                "poster_url": "http://cdn.staging-gowatchit.com/posters/thumb/Grown-Ups-2-poster.jpg",
+                "year": 2013,
+                "genre": "Comedy",
+                "duration": 0,
+                "rate": "PG-13",
+                "queue_count": 3445,
+                "url": "/movies/grown-ups-2-266448",
+                "provider_ids": [],
+                "in_queue": false,
+                "in_watched": false,
+                "rating": 0,
+                "review": ""
+              },
+              .... more movies 
+          ]
+        }    
+    ]
+}      
 
+Get availabilities for a movie.  
 
---
-Availabilities
-An API user will supply the id of a movie, and this method will return a JSON object describing
-where this movie can be watched or ordered, as well as what formats and prices are available.
-Using a movie id obtained from the search method of the API, an availability request is made:
-
-    /api/(API-KEY)/availabilities/(MOVIE-ID)
-
-- MOVIE-ID ID of the movie to fetch availability information about.
-
-Returns a JSON object with categories as object keys, and providers, such as iTunes as the values.
-Each provider will contain an array of available movie formats, such as SD, HD, Rent, Buy, and so forth.
---
-GET /api/(API-KEY)/availabilities/10594
+GET /api/v2/movies/:id/availabilities 
 < 200
 < Content-Type: application/json
-{   "dvd":  [{  
-        "provider":"Netflix Mail",
-        "category":"dvd_bluray",
-        "url":"http://developers.gowatchit.com/widget/movies/toy-story-10594/watch_now?availability=1180066&partner=28&provider=1",
-        "purchase":null,
-        "rental":null,
-        "more_info":"",
-        "availabilities":[{"delivery_format":"mail","buyable":false,"format_desc":null,"price":null,"free":null,"sale_info":""}]}],
-    "streaming":[{
-        "provider":"iTunes",
-        "category":"online_ondemand",
-        "url":"http://developers.gowatchit.com/widget/movies/toy-story-10594/watch_now?availability=1576765&partner=28&provider=3",
-        "purchase":"Buy from $14.99",
-        "rental":"Rent from $2.99",
-        "more_info":"SD / LC / HD",
-        "availabilities":[{
-            "delivery_format":"stream",
-            "buyable":false,
-            "format_desc":"SD",
-            "price":"2.99",
-            "free":false,
-            "sale_info":"rent for $2.99"},
-        {   "delivery_format":"stream",
-            "buyable":false,
-            "format_desc":"LC","price":"2.99",
-            "free":false,"sale_info":"rent for $2.99"},
-        {   "delivery_format":"stream",
-            "buyable":false,"format_desc":"HD",
-            "price":"3.99","free":false,
-            "sale_info":"rent for $3.99"},
-        {   "delivery_format":"stream",
-            "buyable":true,
-            "format_desc":"SD",
-            "price":"14.99",
-            "free":false,
-            "sale_info":"buy for $14.99"}]},
-    {   "provider":"VUDU",
-        "category":"online_ondemand",
-        "url":"http://developers.gowatchit.com/widget/movies/toy-story-10594/watch_now?availability=1762369&partner=28&provider=7",
-        "purchase":"Buy from $17.99","rental":"Rent from $2.00","more_info":"SD / HD / HDX",
-        "availabilities":[{
-            "delivery_format":"stream",
-            "buyable":false,
-            "format_desc":"SD",
-            "price":"2.00",
-            "free":false,
-            "sale_info":"rent for $2.00"}]},
-    ]}]}
+{
+    "presale": null,
+    "theaters": null,
+    "onlines": [
+        {
+            "name": "iTunes",
+            "logo": "http://s3.amazonaws.com/gowatchit-dev/providers/original/3_logo.png",
+            "logos": {
+                "light": "http://s3.amazonaws.com/gowatchit-dev/providers/original/3_logo.png",
+                "dark": "http://s3.amazonaws.com/gowatchit-dev/providers/original/3_dark_logo.jpg"
+            },
+            "link": "http://itunes.apple.com/video/stonehenge-apocalypse/id405438653?uo=5&at=11l3Kx&ct=23",
+            "watch_now": "/widget/movies/stonehenge-apocalypse-1/watch_now?availability=1542493&provider=3&provider_format=3",
+            "format_line": "SD / LC",
+            "buy_line": "Buy from $9.99",
+            "rent_line": "Rent from $2.99",
+            "provider_format_id": 3
+        },
+        ... more online availabilities
+    ],
+    "dvds": [
+        {
+            "name": "Netflix",
+            "logo": "http://s3.amazonaws.com/gowatchit-dev/providers/original/1_logo.png",
+            "logos": {
+                "light": "http://s3.amazonaws.com/gowatchit-dev/providers/original/1_logo.png",
+                "dark": "http://s3.amazonaws.com/gowatchit-dev/providers/original/1_dark_logo.png"
+            },
+            "link": "http://www.netflix.com/Movie/Stonehenge_Apocalypse/70153650",
+            "watch_now": "/widget/movies/stonehenge-apocalypse-1/watch_now?availability=1127555&provider=1&provider_format=2",
+            "format_line": "",
+            "buy_line": "Free for Subscribers<br /><!--[if !IE]>--><span class=\"redLink\"><a href='https://www.netflix.com/Default?loms=abcd&fcld=true' class='redLink'>Join Now »</a></span><!--<![endif]-->",
+            "rent_line": null,
+            "provider_format_id": 2
+        },
+        ...more dvd availabilities
+    ]
+}
++++++
+< 200
+{
+    "repsonse_type": "success",
+    "status_code": 200,
+    "message": "Movie has no availabilities"
+}
++++++
+< 404
+< Content-Type: application/json
+{
+    "repsonse_type": "error",
+    "status_code": 404,
+    "message": "Movie ID not recognized"
+}
+
+--
+Authentication
+Authentication is handled by passing a token (or HTTP session cookie) back and forth. A token is returned in the response of either of the session create endpoints below. You must pass that token with the email address back for all auth required resoureces and endpoints. The token must be passed to server calls  as an SH1 hash digest of the returned auth token. 
+
+It generally looks like this:  
+
+    /api/v2/something?authentication_token={SH1_HASHED_AUTH_TOKEN}&email={email_address}
+
+--
+Sign-in using traditional username and password.
+
+Required parameters:
+
+* **email**  
+* **password**
+
+POST /api/v2/session/with_password
+< 200
+< Content-Type: application/json
+{
+    "display_name": "thisguy@gmail.com",
+    "id": 70,
+    "email": "thisguy@gmail.com",
+    "avatar": null,
+    "service_options": {
+        "in_theaters": {
+            "caption": "In Theaters",
+            "provider_formats": [
+                {
+                    "id": 4,
+                    "display_name": "Fandango",
+                    "logo_url": "http://s3.amazonaws.com/gowatchit-dev/providers/original/4_logo.png"
+                }
+            ]
+        },
+        "dvd_bluray": {
+            "caption": "DVD & Blu-ray",
+            "provider_formats": [
+                {
+                    "id": 2,
+                    "display_name": "Netflix",
+                    "logo_url": "http://s3.amazonaws.com/gowatchit-dev/providers/original/1_logo.png"
+                },
+                {
+                    "id": 9,
+                    "display_name": "Redbox",
+                    "logo_url": "http://s3.amazonaws.com/gowatchit-dev/providers/original/8_logo.png"
+                }
+            ]
+        },
+        "instant_providers": {
+            "caption": "Online & On Demand",
+            "provider_formats": [
+                {
+                    "id": 1,
+                    "display_name": "Netflix",
+                    "logo_url": "http://s3.amazonaws.com/gowatchit-dev/providers/original/1_logo.png"
+                },
+                {
+                    "id": 3,
+                    "display_name": "iTunes",
+                    "logo_url": "http://s3.amazonaws.com/gowatchit-dev/providers/original/3_logo.png"
+                },
+                {
+                    "id": 5,
+                    "display_name": "VUDU",
+                    "logo_url": "http://s3.amazonaws.com/gowatchit-dev/providers/original/7_logo.png"
+                },
+                {
+                    "id": 7,
+                    "display_name": "Amazon",
+                    "logo_url": "http://s3.amazonaws.com/gowatchit-dev/providers/original/11_logo.png"
+                },
+                {
+                    "id": 10,
+                    "display_name": "Movies on Demand",
+                    "logo_url": "http://s3.amazonaws.com/gowatchit-dev/providers/original/5_logo.png"
+                },
+                {
+                    "id": 11,
+                    "display_name": "SnagFilms",
+                    "logo_url": "http://s3.amazonaws.com/gowatchit-dev/providers/original/12_logo.png"
+                },
+                {
+                    "id": 12,
+                    "display_name": "YouTube",
+                    "logo_url": "http://s3.amazonaws.com/gowatchit-dev/providers/original/13_logo.png"
+                },
+                {
+                    "id": 13,
+                    "display_name": "Sundance Now",
+                    "logo_url": "http://s3.amazonaws.com/gowatchit-dev/providers/original/14_logo.png"
+                },
+                {
+                    "id": 14,
+                    "display_name": "Hulu",
+                    "logo_url": "http://s3.amazonaws.com/gowatchit-dev/providers/original/15_logo.png"
+                },
+                {
+                    "id": 16,
+                    "display_name": "Amazon",
+                    "logo_url": "http://s3.amazonaws.com/gowatchit-dev/providers/original/pf_16_logo.png"
+                }
+            ]
+        }
+    },
+    "full_name": "",
+    "friends_count": "0",
+    "authentication_token": "2zWgzpQFgpQQupsVSBjj",
+    "has_facebook": false,
+    "fb_post_preference": "ask",
+    "fb_token": null
+}
++++++
+< 422  
+< Content-Type: application/json
+{
+    "repsonse_type": "error",
+    "status_code": 422,
+    "message": "Wrong username or password"
+}
+
+Sign-in using Facebook.
+
+Required parameters:
+
+* **access_token** - Facebook access token. It is assumed this is gotten from the client side SDK, using the GWI facebook app id. 
+
+POST /api/v2/session/with_fb
+< 200
+< Content-Type: application/json
+{
+    "display_name": "thisguy@gmail.com",
+    "id": 70,
+    "email": "thisguy@gmail.com",
+    "avatar": null,
+    "service_options": {
+        "in_theaters": {
+            "caption": "In Theaters",
+            "provider_formats": [
+                {
+                    "id": 4,
+                    "display_name": "Fandango",
+                    "logo_url": "http://s3.amazonaws.com/gowatchit-dev/providers/original/4_logo.png"
+                }
+            ]
+        },
+        "dvd_bluray": {
+            "caption": "DVD & Blu-ray",
+            "provider_formats": [
+                {
+                    "id": 2,
+                    "display_name": "Netflix",
+                    "logo_url": "http://s3.amazonaws.com/gowatchit-dev/providers/original/1_logo.png"
+                },
+                {
+                    "id": 9,
+                    "display_name": "Redbox",
+                    "logo_url": "http://s3.amazonaws.com/gowatchit-dev/providers/original/8_logo.png"
+                }
+            ]
+        },
+        "instant_providers": {
+            "caption": "Online & On Demand",
+            "provider_formats": [
+                {
+                    "id": 1,
+                    "display_name": "Netflix",
+                    "logo_url": "http://s3.amazonaws.com/gowatchit-dev/providers/original/1_logo.png"
+                },
+                {
+                    "id": 3,
+                    "display_name": "iTunes",
+                    "logo_url": "http://s3.amazonaws.com/gowatchit-dev/providers/original/3_logo.png"
+                },
+                {
+                    "id": 5,
+                    "display_name": "VUDU",
+                    "logo_url": "http://s3.amazonaws.com/gowatchit-dev/providers/original/7_logo.png"
+                },
+                {
+                    "id": 7,
+                    "display_name": "Amazon",
+                    "logo_url": "http://s3.amazonaws.com/gowatchit-dev/providers/original/11_logo.png"
+                },
+                {
+                    "id": 10,
+                    "display_name": "Movies on Demand",
+                    "logo_url": "http://s3.amazonaws.com/gowatchit-dev/providers/original/5_logo.png"
+                },
+                {
+                    "id": 11,
+                    "display_name": "SnagFilms",
+                    "logo_url": "http://s3.amazonaws.com/gowatchit-dev/providers/original/12_logo.png"
+                },
+                {
+                    "id": 12,
+                    "display_name": "YouTube",
+                    "logo_url": "http://s3.amazonaws.com/gowatchit-dev/providers/original/13_logo.png"
+                },
+                {
+                    "id": 13,
+                    "display_name": "Sundance Now",
+                    "logo_url": "http://s3.amazonaws.com/gowatchit-dev/providers/original/14_logo.png"
+                },
+                {
+                    "id": 14,
+                    "display_name": "Hulu",
+                    "logo_url": "http://s3.amazonaws.com/gowatchit-dev/providers/original/15_logo.png"
+                },
+                {
+                    "id": 16,
+                    "display_name": "Amazon",
+                    "logo_url": "http://s3.amazonaws.com/gowatchit-dev/providers/original/pf_16_logo.png"
+                }
+            ]
+        }
+    },
+    "full_name": "",
+    "friends_count": "0",
+    "authentication_token": "2zWgzpQFgpQQupsVSBjj",
+    "has_facebook": false,
+    "fb_post_preference": "ask",
+    "fb_token": null
+}
++++++
+< 422  
+{
+    "repsonse_type": "error",
+    "status_code": 422,
+    "message": "Wrong username or password"
+}
+
+--
+Users
+The following resource deals with retrieving and updating user data. The general usage is as follows:  
+    
+    /api/v2/movie/user/ENDPOINT.json
+
+--
+
+
+Request a 'forgot password' email.  
+
+Required parameters:
+
+*  **email** - user's email
+
+POST /api/v2/user/forgot_password
+< 200
+< Content-Type: application/json
+{
+    "repsonse_type": "success",
+    "status_code": 200,
+    "message": "Password instructions successfully sent"
+}
++++++
+< 422
+< Content-Type: application/json
+{   
+    "response_type": "error",
+    "status_code": 422,
+    "message": "Email address not recognized"
+}
+
+
+Get movies in user's queue. Requires login. The response is paginated to inlcude 20 movies per page. 
+The response can also be optionally filtered to include movies that are available instantly and in the specified provider-formats.
+
+Pagination parameters:
+
+* **offset** - offset from the beginning of the queue
+* **page** - page number counting from the offset
+
+Filter parameters (optional):
+
+* **provider_format_ids** - a comma-separated list of provider-format IDs (from the GoWatchIt database)
+* **instatntly_available** - when enabled (true), the response will only include titles that are available for instant streaming  
+
+
+GET /api/v2/user/queue
+offset=13&page=2
+< 200
+< Content-Type: application/json
+{
+    "movies": [
+        {
+            "id": 12910,
+            "synopsis": "A group of former government assassins fights back against the CIA after they're targeted for knowing too much in this adaptation of Warren Ellis' acclaimed DC Comics graphic novels. Frank Moses (Bruce Willis) used to be a hired gun for the CIA. Along with Joe (Morgan Freeman), Marvin (John Malkovich), and Victoria (Helen Mirren), Frank's specialty was carrying out contracts that the government didn't want the public to know about. These days, Frank and his old gang are all retired, but the powers that be are still concerned that they know too much, and dispatch a team of top assassins to ensure their silence. Now, Frank and his former team members realize that their only hope for survival is to break into CIA headquarters and expose the truth. But once they're in, the group uncovers evidence of a massive cover-up that promises to rock the very foundation of our government. Karl Urban, Brian Cox, Richard Dreyfuss, and Ernest Borgnine co-star.",
+            "title": "Red",
+            "poster_url": "http://cdn.staging-gowatchit.com/posters/thumb/movie_12910.jpg",
+            "year": 2010,
+            "genre": "Action/Adventure",
+            "duration": 111,
+            "rate": "PG-13",
+            "queue_count": 192,
+            "url": "/movies/red-12910",
+            "provider_ids": [
+                1,
+                3,
+                7,
+                11,
+                17
+            ],
+            "in_queue": true,
+            "in_watched": false,
+            "rating": 4,
+            "review": "not bad at all"
+        },
+        ... more movies
+    ],
+    "total_by_filter": 103,
+    "total_queued": 103,
+    "paging": {
+        "current_offset": 33,
+        "per_page": 20,
+        "next_page": "/api/v2/user/queue?offset=53"
+    }
+}
++++++
+< 401
+< Content-Type: application/json
+{
+    "repsonse_type": "error",
+    "status_code": 401,
+    "message": "Login required"
+}
+
+
+
+Add a movie to a user's queue. Requires login.
+
+Required parameters:
+
+* **movie_id** - the GoWatchIt movie id
+
+POST /api/v2/user/queue
+< 200
+< Content-Type: application/json
+{
+    "response_type": "success",
+    "status_code": 200,
+    "message": "Stonehenge Apocalypse successfully queued"
+}
++++++
+< 401
+< Content-Type: application/json
+{
+    "repsonse_type": "error",
+    "status_code": 404,
+    "message": "Movie ID not recognized"
+}
+
+Delete a movie from user's queue. Required login. 
+
+Required parameters:
+
+* **movie_id** - the GoWatchIt movie id
+
+DELETE /api/v2/user/queue
+< 200
+< Content-Type: application/json
+{
+    "response_type": "success",
+    "status_code": 200,
+    "message": "Stonehenge Apocalypse deleted from queue"
+}
++++++
+< 401
+< Content-Type: application/json
+{
+    "repsonse_type": "error",
+    "status_code": 404,
+    "message": "Movie is not in user's queue"
+}
+
 
