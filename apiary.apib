@@ -53,9 +53,21 @@ You can also supply an OPTIONAL query­string with additional metadata to match 
 known. This include “year”, “director”, and “cast”. Cast members should be joined as a comma­seperated list
 (Where the field title is required, and year, director, and cast are optional.)
 
+Here is an example: 
+/api/v2/search/ranked/downfall?year=2004&director=Oli ver Hirschbiegel&cast=Bruno Ganz,Alexandra Maria Lara
+
 GET /api/v2/search/ranked/:title
 < 200
-
+< Content-Type: application/json
+[
+    {
+        "id": 41219,
+        "mrqe_id": "m100087691",
+        "title": "Downfall",
+        "year": 2004,
+        "confidence": 6
+    }
+]
 
 
 --
