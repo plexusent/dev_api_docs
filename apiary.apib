@@ -32,8 +32,25 @@ All Requests should be in the format /api/v2/ENDPOINT?apikey=bla&otherparams=BLA
 --
 GWI Movie IDs. 
 
-Almost every endpoint will require a GoWatchIt (GWI) movie id. For limited use, the IDs can be given to you by GWI. If you require wide spread usage, you can use the weighted search endpoint. 
+Almost every endpoint will require a GoWatchIt (GWI) movie id. For limited use, the IDs can be given to you by GWI. If you require wide spread usage, you can use the ranked search endpoint. 
 --
+
+--
+Ranked Search
+You use this endpoint to search for a GoWatchIt movie_id. This endpoint is resource intensive, and is not meant to be connected to an end-user interface. Once you discover a GWI movie_id, those id's should be cached. This endpoing requires special permission from GWI. 
+
+    /api/v2/search/ranked/:TITLE[?other­queries]
+    
+
+* TITLE is the title of a movie to match
+* other queries is an OPTIONAL query­string with additional metadata to match against, if
+known. This include “year”, “director”, and “cast”. Cast members should be joined as a comma­seperated list
+https://api.gowatchit.com/api/{API_KEY}/ranked_search/title/downfall?year=2004&director=Oli ver Hirschbiegel&cast=Bruno Ganz,Alexandra Maria Lara
+(Where the field title is required, and year, director, and cast are optional.)
+--
+
+
+
 
 --
 Movies
