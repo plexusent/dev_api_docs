@@ -42,13 +42,19 @@ You use this endpoint to search for a GoWatchIt movie_id. This endpoint is resou
     /api/v2/search/ranked/:TITLE[?other­queries]
     
 
-* TITLE is the title of a movie to match
-* other queries is an OPTIONAL query­string with additional metadata to match against, if
-known. This include “year”, “director”, and “cast”. Cast members should be joined as a comma­seperated list
-https://api.gowatchit.com/api/{API_KEY}/ranked_search/title/downfall?year=2004&director=Oli ver Hirschbiegel&cast=Bruno Ganz,Alexandra Maria Lara
-(Where the field title is required, and year, director, and cast are optional.)
 --
+Get a list of title and their ids, with a match confidence score. If there are multiple matches, pick the one with the highest score. Note that a full title match happens (with some normalization for things like Part II vs. Part 2), so do not submit partial title strings. 
 
+Required Parameters:
+
+* TITLE is the title of a movie to match
+
+You can also supply an OPTIONAL query­string with additional metadata to match against, if
+known. This include “year”, “director”, and “cast”. Cast members should be joined as a comma­seperated list
+(Where the field title is required, and year, director, and cast are optional.)
+
+GET /api/v2/search/ranked/:title
+< 200
 
 
 
