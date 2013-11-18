@@ -50,8 +50,8 @@ Required Parameters:
 * TITLE is the title of a movie to match
 
 You can also supply an OPTIONAL query­string with additional metadata to match against, if
-known. This include “year”, “director”, and “cast”. Cast members should be joined as a comma­seperated list
-(Where the field title is required, and year, director, and cast are optional.)
+known. This is used to disambiguate movies which may have the same title, but are infact different movies. This include “year”, “director”, and “cast”. Cast members should be joined as a comma­seperated list
+(Where the field title is required, and year, director, and cast are optional.) 
 
 Here is an example: 
 /api/v2/search/ranked/downfall?year=2004&director=Oli ver Hirschbiegel&cast=Bruno Ganz,Alexandra Maria Lara
