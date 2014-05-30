@@ -8,7 +8,6 @@ Returns TV data in JSON format
 * api/v3/shows/:id
 * api/v3/shows/:id/availabilites
 * api/v3/shows/:id/lite
-* api/v3/seasons
 * api/v3/seasons/:id
 * api/v3/seasons/:id/availabilites
 * api/v3/episodes/:id
@@ -138,27 +137,6 @@ __Fields__
  			* __dark logo__ - provider logo dark
  * __available__ - returns true if there are availabilities for the show, false if there aren't any    
 
-### GET api/v3/seasons.json
-
-Returns a paginated array of all shows in database.
-
-Optional query parameters - page and per_page
-
-__Fields__
-
-* __shows__ - array of all shows consist of
- * __id__ - show id
- * __title__ - show title
- * __description__ - short synopsis of show
- * __poster file name__ 
- * __year__ - release year
- * __network__
- * __pg rating id__ - parental guidelines id
- * __language__ 
- * __trailer url__
- * __genre__ - watchable genres such as 'comedy', 'horror' etc.
- * __contributors__
-
 ### GET api/v3/seasons/:id.json
 
 Required parameter - season_id
@@ -170,6 +148,7 @@ __Fields__
 * __season__
  * __id__ - season id
  * __title__ - season title
+ * __description__ - short synopsis of season
  * __premiere__ - season premiere date
  * __contributors__
  * __season number__
