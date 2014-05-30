@@ -87,26 +87,40 @@ Supports all general search filters (year, genres, categories etc.) but works on
 Additionally, 
 
 1. Term-less search queries' default sort order can be overriden by following parameters. 
- *sort* - attribute by which the returned watchables will be sorted. Currently supported: title, year
- *sort_order* - the order in which search results will be sorted. Valid values: asc, desc
+   * *sort* - attribute by which the returned watchables will be sorted. Currently supported: title, year
+   * *sort_order* - the order in which search results will be sorted. Valid values: asc, desc
 
    ```
-   http://gowatchit.com/api/v3/search/movies?genres[]=comdey&sort=year&sort_order=desc
+   http://gowatchit.com/api/v3/search/movies?genres[]=comedy&sort=year&sort_order=desc
    ```
 
-2. Maximum number of search results can be limited by
- *num_items*
+2. Maximum number of search results can be limited by *num_items*
 
    ```
-   http://gowatchit.com/api/v3/search/movies?genres[]=comdey&num_items=100
+   http://gowatchit.com/api/v3/search/movies?genres[]=comedy&num_items=100
    ```
-3. Search results can be paginated by specifying
- *offset* 
+3. Search results can be paginated by specifying *offset* 
 
    ```
-   http://gowatchit.com/api/v3/search/movies?genres[]=comdey&num_items=100&offset=20
+   http://gowatchit.com/api/v3/search/movies?genres[]=comedy&num_items=100&offset=20
    ```
    
+### GET api/v3/search/shows
+
+Similarly to search/movies supports all general search filters (except for run_time) but works only with TV shows.
+   
+   ```
+   http://gowatchit.com/api/v3/search/shows?pg_rating=tv14
+   ```
+   
+### GET api/v3/search/contributors
+
+Returns a list of contributors such as cast members, directors, writers etc. matched to supplied *term*.
+   ```
+   http://gowatchit.com/api/v3/search/contributors?term=allen
+   ```
+   
+
    
 
   
