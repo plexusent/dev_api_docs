@@ -22,16 +22,16 @@ following categories: movies, shows and contributors.
    - *term* - a set of keywords such as a watchable title, actor's name etc.
    - *genres* - watchable genres such as 'comedy', 'horror' etc. Search
    results will include watchables in the specified genres.
-
-   genres[]=comedy
-
+   
+      genres[]=comedy
+   
    - *year* - a watchable's release year
    - *pg_ratings* - parental guidelines ratings. Search results will
    include watchables in the specified ratings. Accepted movie ratings: *G,
    PG, PG-13, R, NC-17* (MPAA <http://www.mpaa.org/film-ratings>). Accepted
    TV ratings: *TV-Y, TV-Y7, TV-G, TV-PG, TV-14, TV-MA* (TV parental
    guidelines <http://en.wikipedia.org/wiki/TV_Parental_Guidelines>)
-
+   
    pg_ratings[]=pg-13
 
    - *run_time_min* - a watchable's minimum duration
@@ -42,20 +42,25 @@ following categories: movies, shows and contributors.
 Allow customization of search results based on a watchable's current availability.
 
    - *provider_format_ids* - includes watchables in the specified GoWatchIt provider formats. For example,
-
+   
    provider_format_ids[]=1
-
+   
    will only include watchables available via Netflix Mail unless other availability parameters are specified.
    - *categories* - a list of availability categories. Search results will only include watchables available in the specified categories. 
 
    Valid values: 
-      * *presale* (presale theater tickets are available),
-      * *theater* (currently played in theaters), *online* (available for online streaming) and
+      * *presale* (presale theater tickets are available)
+      * *theater* (currently played in theaters) 
+      * *online* (available for online streaming) and
       * *dvd* (available on DVD/Blu-Ray). For example, a search specifying
-
+   ```
    categories[]=online
-
+   ```
    will only include watchables available for streaming
+
+### Sorting
+If a search term is supplied, the watchables will always be sorted by relevance. Otherwise, the watchables will be sorted by title in the ascending order. 
+
 
 #### Sorting parameters
 
@@ -75,4 +80,20 @@ OR on dvd OR both, pass the *categories* like so
 
 The same pattern applies to all collection parameters such as
 *provider_format_ids*, *genres*,*pg_ratings* etc.
+
+### GET api/v3/search/movies
+
+Supports all general search filters (year, genres, categories etc.) but works only with movies.
+
+Additionally, 
+
+1. Term-less search queries' default sort order can be overriden by following parameters. 
+ *sort* - attribute by which the returned watchables will be sorted. Currently supported: title, year
+ *sort_order* - the order in which search results will be sorted. Valid values: asc, desc
+
+2. Maximum number of search results can be limited by
+ *num_items*
+
+3. Search results can be paginated by specifying
+ *offset* 
 
