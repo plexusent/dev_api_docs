@@ -15,7 +15,8 @@ Returns TV data in JSON format
 **Note About TV Availabilities**
 
 Our television data is hierarchical in nature, with `Shows` having `Seasons` which have `Episodes`.
-(`Shows` may, in rare cases have `Episodes` direcly, but we try to avoid that).
+
+(Shows may, in rare cases have episodes direcly, but we try to avoid that).
 
 Each of those three levels may have their own availability records. For example, most availabitities are on the 
 episode level, however iTunes has full "Season Passes" available for a one-time purchase. It's possible but not common
