@@ -23,7 +23,9 @@ following categories: movies, shows and contributors.
    - *genres* - watchable genres such as 'comedy', 'horror' etc. Search
    results will include watchables in the specified genres.
    
-      genres[]=comedy
+   ```
+   genres[]=comedy
+   ```
    
    - *year* - a watchable's release year
    - *pg_ratings* - parental guidelines ratings. Search results will
@@ -32,8 +34,9 @@ following categories: movies, shows and contributors.
    TV ratings: *TV-Y, TV-Y7, TV-G, TV-PG, TV-14, TV-MA* (TV parental
    guidelines <http://en.wikipedia.org/wiki/TV_Parental_Guidelines>)
    
+   ```   
    pg_ratings[]=pg-13
-
+   ```
    - *run_time_min* - a watchable's minimum duration
    - *run_time_max* - a watchable's maximum duration
 
@@ -43,7 +46,9 @@ Allow customization of search results based on a watchable's current availabilit
 
    - *provider_format_ids* - includes watchables in the specified GoWatchIt provider formats. For example,
    
+   ```
    provider_format_ids[]=1
+   ```
    
    will only include watchables available via Netflix Mail unless other availability parameters are specified.
    - *categories* - a list of availability categories. Search results will only include watchables available in the specified categories. 
@@ -76,7 +81,9 @@ __[ ]__ denotes parameters that can accept a collection of values. For
 example, in order to retrieve watchables that are available for streaming
 OR on dvd OR both, pass the *categories* like so
 
-  categories[]=online&categories[]=dvd
+   ```
+   categories[]=online&categories[]=dvd
+   ```
 
 The same pattern applies to all collection parameters such as
 *provider_format_ids*, *genres*,*pg_ratings* etc.
