@@ -11,6 +11,33 @@ Returns TV data in JSON format
 * api/v3/seasons/:id
 * api/v3/seasons/:id/availabilites
 * api/v3/episodes/:id
+* 
+
+**Note About TV Availabilities**
+
+Our television data is hierarchical in nature, with `Shows` having `Seasons` which have `Episodes`.
+(`Shows` may, in rare cases have `Episodes` direcly, but we try to avoid that).
+
+Each of those three levels may have their own availability records. For example, most availabitities are on the 
+episode level, however iTunes has full "Season Passes" available for a one-time purchase. It's possible but not common
+for a Show to have an availability.
+
+Episode availabilities are __not__ considered availabilities of their parent show or season's API endpoint. 
+(If this were the case, The Simpsons "show" endpoint would contain 525+ episodes).
+
+To retrieve a Show's list of episodes, the client must first query `api/v3/shows/:id`, then read the available season ids shown. 
+Next, the client should query `api/v3/seasons/:id` and retrieve the episode ids listed. 
+Finally, the client may query specific episodes by id at `api/v3/episodes/:id`
+
+These endpoints below have a special properties of direct and related availabilities:
+ * `/api/v3/shows/:id`
+ * `/api/v3/shows/:id/availabilities`
+ * `/api/v3/seasons/:id`
+ * `/api/v3/seasons/:id/availabilites`
+
+A direct availabilities is, as described above, directly for that show or season.
+A related availability is the lastest episode of the latest season. This is only shown when one is available.
+The presence of any current direct or related availabilty will cause the `available` attribute to be true.
 
 ### GET api/v3/shows.json
 Returns a paginated array of all shows in database.
@@ -81,6 +108,8 @@ __Fields__
 	    		* __category__
  * __available__ - returns true if there are availabilities for the show, false if there aren't any
 
+See "Note About TV Availabilities" at the top of this document for more information about availabilities.
+
 ### GET api/v3/show/:id/availabilities.json
 
 Required parameter - show_id
@@ -109,6 +138,8 @@ __Fields__
 		 	* __provider format id__
 		 	* __category__
 * __available__ - returns true if there are availabilities for the show, false if there aren't any
+
+See "Note About TV Availabilities" at the top of this document for more information about availabilities.
 
 ### GET api/v3/show/:id/lite.json
 
@@ -178,6 +209,8 @@ __Fields__
 			 		* __category__
 	* __available__ - true or false
 
+See "Note About TV Availabilities" at the top of this document for more information about availabilities.
+
 ### GET api/v3/seasons/:id/availabilites.json
 
 Required parameters - season_id
@@ -206,6 +239,8 @@ __Fields__
 		 	* __category__
 	* __available__
 	 
+See "Note About TV Availabilities" at the top of this document for more information about availabilities.
+
 ### GET api/v3/episodes/:id.json
 
 Required parameters - episode_id
@@ -226,7 +261,6 @@ __Fields__
 * __season id__
 * __availabilities__
 	 * __direct__
-	 * __related__
 	 	* __presale__
 	 	* __theaters__
 	 	* __onlines__
@@ -242,4 +276,5 @@ __Fields__
 		   * __direct url__
 		   * __provider format id__
 		   * __category__   
+	 * __related__ - always null for episodes
 	* __available__ - true/false
