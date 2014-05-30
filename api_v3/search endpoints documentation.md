@@ -67,14 +67,6 @@ Allow customization of search results based on a watchable's current availabilit
 If a search term is supplied, the watchables will always be sorted by relevance. Otherwise, the watchables will be sorted by title in the ascending order. 
 
 
-#### Sorting parameters
-
-   - *sort* - attribute by which the returned watchables will be sorted. If
-   a term is supplied, the watchables will be sorted by relevance. The
-   watchables can also be explicetely ordered by*title* and *year*.
-   - *sort_order* - the order in which search results will be sorted. Valid
-   values: *asc, desc*
-
 **Note on formatting collection URL parameters:**
 
 __[ ]__ denotes parameters that can accept a collection of values. For
@@ -98,9 +90,24 @@ Additionally,
  *sort* - attribute by which the returned watchables will be sorted. Currently supported: title, year
  *sort_order* - the order in which search results will be sorted. Valid values: asc, desc
 
+   ```
+   http://gowatchit.com/api/v3/search/movies?genres[]=comdey&sort=year&sort_order=desc
+   ```
+
 2. Maximum number of search results can be limited by
  *num_items*
 
+   ```
+   http://gowatchit.com/api/v3/search/movies?genres[]=comdey&num_items=100
+   ```
 3. Search results can be paginated by specifying
  *offset* 
+
+   ```
+   http://gowatchit.com/api/v3/search/movies?genres[]=comdey&num_items=100&offset=20
+   ```
+   
+   
+
+  
 
