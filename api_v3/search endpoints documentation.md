@@ -4,8 +4,9 @@ Returns matches of a term or criteria for movie, show, and contribution (directo
 These can be used for search features as well as AJAX autocomplete functionality.
 
 * api/v3/search.json
-* api/v3/shows.json
-* api/v3/contributors.json
+* api/v3/search/movies.json
+* api/v3/search/shows.json
+* api/v3/search/contributors.json
 
 __Note:__ Since the GoWatchIt database includes both movie AND television data, we will
 refer to individual items as 'watchables'. Watchables currently include
@@ -74,16 +75,4 @@ OR on dvd OR both, pass the *categories* like so
 
 The same pattern applies to all collection parameters such as
 *provider_format_ids*, *genres*,*pg_ratings* etc.
-
-
-### Related Search Endpoints
-
-* **GET api/v3/movies.json**
-* **GET api/v3/contributors.json**
-
-These endpoints function equivalently to the above, however they only retrieve results for the resource type specified.
-
-### Future Additions
-
-* **GET api/v3/movies.json** - Movie results, similar to general search
 
