@@ -11,7 +11,6 @@ Returns TV data in JSON format
 * api/v3/seasons/:id
 * api/v3/seasons/:id/availabilites
 * api/v3/episodes/:id
-* 
 
 **Note About TV Availabilities**
 
