@@ -19,6 +19,8 @@ Get a list of featured content arranged by categories. The response movie data a
 		* __url__ - movie's GoWatchIt URL
 		* __providers__ - list of providers that currently have the movie available
 
+>! Spoiler 1
+>! Spoiler 2
 
 ### GET /api/v3/movies/:id
 Get metadata and availabilities for a movie.
