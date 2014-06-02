@@ -5,19 +5,19 @@
 Get a list of featured content arranged by categories. The response movie data accounts for the logged-in user.
 
 #### Fields
-* __categories__ - a collections of featured categories with each category having 
+* __categories__ - a collection of featured categories each having 
 
-	* __title__ the category title
-	* __movies__ - a collection of movies in the category with each movie having
+	* __title__
+	* __movies__ - a collection of movies in the category each having
 		* __title__
-		* __description__
+		* __description__ - short description / synopsis
 		* __year__ - year of the release
 		* __genre__
 		* __poster_url__
-		* __pg_rating__ - parental guidelines rating
+		* __pg_rating__ - parental guidelines rating ([MPAA](http://www.mpaa.org/film-ratings/))
 		* __queue_count__ - the number of queues the movie is in
-		* __url__ - the GoWatchIt url
-		* __providers__ - a list of provider logos that currently carry the movie
+		* __url__ - movie's GoWatchIt url
+		* __providers__ - a list of providers that currently have the movie available
 
 
 ### GET /api/v3/movies/:id
