@@ -41,7 +41,7 @@ Get metadata and availabilities for a movie.
 * __available__ - boolean flag indicating movie's availability status
 *__availabilities__ - movie availabilities grouped by the following categories: presale, theater, online & dvd
 
-Each availability will encapsulate
+Each availability encapsulates
 * __format_line__ - formatted list of formats in which movie is available for a particular provider. Ex: "SD / HD"
 * __buy_line__ - formatted buy line such as "Buy from $9.99"
 * __rent_line__ - formatted rent line such as "Rent from $3.99"
@@ -62,7 +62,7 @@ Get availabilities for a movie. A lighter version of GET movies/:id that skips m
 
 * __availabilities__ - movie availabilities grouped by the following categories: presale, theater, online & dvd. 
 
-Each availability will encapsulate
+Each availability encapsulates
 * __format_line__ - formatted list of formats in which movie is available for a particular provider. Ex: "SD / HD"
 * __buy_line__ - formatted buy line such as "Buy from $9.99"
 * __rent_line__ - formatted rent line such as "Rent from $3.99"
@@ -75,6 +75,21 @@ Each availability will encapsulate
 * __direct_url__ - direct provider URL
 * __category__ - avilabilitie's category such as dvd, online etc.
 
+#### GET /api/v3/movies/:id/review
+Returns a paginated list of all user reviews for a movie.
+
+#### Fields
+* __reviews__ - a collection of reviews each having
+	* __user__ - name of the athor
+	* __star_rating__ - number of starts the movie was given
+	* __review__ - review's text
+
+### POST /api/v3/movies/:id/review
+Allows users to review movies. Requires the user to be logged-in.
+
+#### Parameters
+* __star_rating__ (required) - a user rating between 1 and 5
+* __review__ (optional) - a text review
 
 
 
