@@ -98,7 +98,7 @@ __Fields__
 	    			* __buy line__
 	    			* __rent line__
 	    			* __provider name__
-	    			* __provider logos__
+	    			* __provider format logos__
 	     				* __light__
 	     				* __dark__
 	    			* __watch now url__
@@ -129,7 +129,7 @@ __Fields__
 		 	* __buy line__
 		 	* __rent line__
 		 	* __provider name__
-		 	* __provider logos__
+		 	* __provider format logos__
 		 		* __light__
 		 		* __dark__
 		 	* __watch now url__
@@ -199,7 +199,7 @@ __Fields__
 			 	* __buy line__
 			 	* __rent line__
 			 	* __provider name__
-			 	* __provider logos__
+			 	* __provider format logos__
 			 		* __light__
 			 		* __dark__
 			 	* __watch now url__
@@ -229,7 +229,7 @@ __Fields__
 		 	* __buy line__
 		 	* __rent line__
 		 	* __provider name__
-		 	* __provider logos__
+		 	* __provider format logos__
 		 		* __light__
 		 		* __dark__
 		 	* __watch now url__
@@ -268,7 +268,7 @@ __Fields__
 		   * __buy line__
 		   * __rent line__
 		   * __provider name__
-		   * __provider logos__
+		   * __provider format logos__
 		     * __light__
 		     * __dark__  
 		   * __watch now url__
