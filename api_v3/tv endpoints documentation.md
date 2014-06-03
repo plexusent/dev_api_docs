@@ -92,19 +92,19 @@ __Fields__
   		* __related__ - both direct and related if present consist of:
 	   		* __presale__
 	   		* __theater__
-	   		* __onlines__
-	   		* __dvds__ - all of these categories if present consist of:
+	   		* __online__
+	   		* __dvd__ - all of these categories if present consist of:
 	   			* __format line__
-	    		* __buy line__
-	    		* __rent line__
-	    		* __provider name__
-	    		* __provider logos__
-	     			* __light__
-	     			* __dark__
-	    		* __watch now url__
-	    		* __direct url__
-	    		* __provider format id__
-	    		* __category__
+	    			* __buy line__
+	    			* __rent line__
+	    			* __provider name__
+	    			* __provider logos__
+	     				* __light__
+	     				* __dark__
+	    			* __watch now url__
+	    			* __direct url__
+	    			* __provider format id__
+	    			* __category__
  * __available__ - returns true if there are availabilities for the show, false if there aren't any
 
 See "Note About TV Availabilities" at the top of this document for more information about availabilities.
@@ -122,9 +122,9 @@ __Fields__
 	 * __direct__
 	 * __related__ - both direct and related if present consist of:
 	 	* __presale__
-	 	* __theaters__
+	 	* __theater__
 	 	* __online__ 
-	 	* __dvds__ - all of these categories if present consist of:
+	 	* __dvd__ - all of these categories if present consist of:
 		 	* __format line__
 		 	* __buy line__
 		 	* __rent line__
@@ -191,22 +191,22 @@ __Fields__
  * __availabilities__ - direct and related season availabilities
 	 	* __direct__
 	 	* __related__
-	 	 * __presale__
-	 	 * __theaters__
-	 	 * __onlines__
-	 	 * __dvds__
-			 * __format line__
-			 		* __buy line__
-			 		* __rent line__
-			 		* __provider name__
-			 		* __provider logos__
-			 			* __light__
-			 			* __dark__
-			 		* __watch now url__
-			 		* __direct url__
-			 		* __provider format id__
-			 		* __category__
-	* __available__ - true or false
+	 	 	* __presale__
+	 	 	* __theater__
+	 	 	* __online__
+	 	 	* __dvd__
+				* __format line__
+			 	* __buy line__
+			 	* __rent line__
+			 	* __provider name__
+			 	* __provider logos__
+			 		* __light__
+			 		* __dark__
+			 	* __watch now url__
+			 	* __direct url__
+			 	* __provider format id__
+			 	* __category__
+* __available__ - true or false
 
 See "Note About TV Availabilities" at the top of this document for more information about availabilities.
 
@@ -221,11 +221,11 @@ __Fields__
 * __availabilities__
  	* __direct__
  	* __related__
- 	 * __presale__
- 	 * __theaters__
- 	 * __onlines__
-	 * __dvds__
-	 		* __format line__
+ 	 	* __presale__
+ 	 	* __theater__
+ 	 	* __online__
+	 	* __dvd__
+	 	 	* __format line__
 		 	* __buy line__
 		 	* __rent line__
 		 	* __provider name__
@@ -236,7 +236,7 @@ __Fields__
 		 	* __direct url__
 		 	* __provider format id__
 		 	* __category__
-	* __available__
+* __available__
 	 
 See "Note About TV Availabilities" at the top of this document for more information about availabilities.
 
@@ -261,9 +261,9 @@ __Fields__
 * __availabilities__
 	 * __direct__
 	 	* __presale__
-	 	* __theaters__
-	 	* __onlines__
-	 	* __dvds__
+	 	* __theater__
+	 	* __online__
+	 	* __dvd__
 		   * __format line__
 		   * __buy line__
 		   * __rent line__
@@ -276,4 +276,4 @@ __Fields__
 		   * __provider format id__
 		   * __category__   
 	 * __related__ - always null for episodes
-	* __available__ - true/false
+* __available__ - true/false
