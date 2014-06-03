@@ -63,7 +63,7 @@ a single show consist of
  * __genre__ - watchable genres such as 'comedy', 'horror' etc.
  * __contributors__
 
-### GET api/v3/show/:id
+### GET api/v3/shows/:id
 
 Required parameter - show_id
  
@@ -109,7 +109,7 @@ __Fields__
 
 See "Note About TV Availabilities" at the top of this document for more information about availabilities.
 
-### GET api/v3/show/:id/availabilities.json
+### GET api/v3/shows/:id/availabilities.json
 
 Required parameter - show_id
 
@@ -140,7 +140,7 @@ __Fields__
 
 See "Note About TV Availabilities" at the top of this document for more information about availabilities.
 
-### GET api/v3/show/:id/lite.json
+### GET api/v3/shows/:id/lite.json
 
 Required parameter - show_id
 
