@@ -107,12 +107,27 @@ Additionally,
    
 ### GET api/v3/search/shows
 
-Similarly to search/movies supports all general search filters (except for run_time) but works only with TV shows.
-   
+Search TV shows. If no filtering options are specified, the endpoint will return all the known shows (paginated) sorted in the alphabetical order.
+Currently supported filters:
+
+* *genres* - only the shows matching the specified genres will be returned.
+
    ```
-   http://gowatchit.com/api/v3/search/shows?pg_rating=tv14
+   http://mpaa.staging-gowatchit.com/api/v3/search/shows?genres[]=action
    ```
+* *pg_ratings* - only the shows with the specified [parental guidelines ratings](http://www.tvguidelines.org/ratings.htm) will be returned
    
+   ``` 
+   http://mpaa.staging-gowatchit.com/api/v3/search/shows?pg_ratings[]=tv14
+   ```
+
+* *year* - only the shows premiered in the specified year will be returned
+
+   ```
+   http://mpaa.staging-gowatchit.com/api/v3/search/shows?year=2014
+   ```
+
+
 ### GET api/v3/search/contributors
 
 Returns a list of contributors such as cast members, directors, writers etc. matched to supplied *term*.
