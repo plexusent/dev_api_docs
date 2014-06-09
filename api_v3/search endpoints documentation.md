@@ -129,7 +129,12 @@ Search TV shows. If no filtering options are specified, the endpoint will return
    ```
    http://mpaa.staging-gowatchit.com/api/v3/search/shows?year=2014
    ```
-   
+* *categories* - a list of availability categories. (supported: presale, theater, dvd, online). Only watchables available in the specified categories will be returned.
+
+   ```
+   http://mpaa.staging-gowatchit.com/api/v3/search/shows?categories[]=online
+   ```
+
    All of the above filters can be combined.
    
 #### Sorting
