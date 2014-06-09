@@ -139,7 +139,7 @@ Search TV shows. If no filtering options are specified, the endpoint will return
    
 #### Sorting
 
-Term-less search queries' default sort order can be overriden by following parameters. 
+Term-less search queries default sort order can be overriden by following parameters. 
    * *sort* - attribute by which the returned watchables will be sorted. Currently supported: title, year
    * *sort_order* - the order in which search results will be sorted. Valid values: asc, desc
 
