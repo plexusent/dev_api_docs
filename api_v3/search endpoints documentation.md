@@ -63,7 +63,7 @@ Allow customization of search results based on a watchable's current availabilit
    ```
    will only include watchables available for streaming
 
-### Sorting
+#### Sorting
 If a search term is supplied, the watchables will always be sorted by relevance. Otherwise, the watchables will be sorted by title in the ascending order. 
 
 
@@ -108,7 +108,10 @@ Additionally,
 ### GET api/v3/search/shows
 
 Search TV shows. If no filtering options are specified, the endpoint will return all the known shows (paginated) sorted in the alphabetical order.
-Currently supported filters:
+
+#### Supported filters
+
+* *term* - a set of keywords to match against show titles. Only the titles matching the term will be returned.
 
 * *genres* - only the shows matching the specified genres will be returned.
 
@@ -126,6 +129,14 @@ Currently supported filters:
    ```
    http://mpaa.staging-gowatchit.com/api/v3/search/shows?year=2014
    ```
+   
+   All of the above filters can be combined.
+   
+#### Sorting
+
+Term-less search queries' default sort order can be overriden by following parameters. 
+   * *sort* - attribute by which the returned watchables will be sorted. Currently supported: title, year
+   * *sort_order* - the order in which search results will be sorted. Valid values: asc, desc
 
 
 ### GET api/v3/search/contributors
