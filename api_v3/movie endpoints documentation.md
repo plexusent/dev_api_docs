@@ -17,7 +17,7 @@ Get a list of featured content arranged by categories. The response movie data a
 		* __pg_rating__ - parental guidelines rating ([MPAA](http://www.mpaa.org/film-ratings/))
 		* __queue_count__ - number of users who have the movie in their queue
 		* __url__ - movie's GoWatchIt URL
-		* __providers__ - list of providers that currently have the movie available
+		* __run_time__
 
 
 ### GET /api/v3/movies/:id
@@ -31,15 +31,15 @@ Get metadata and availabilities for a movie.
 * __year__ - year of release
 * __genre__
 * __pg_rating__ - parental guidelines rating ([MPAA](http://www.mpaa.org/film-ratings/)) 
-* __duration__ 
+* __run_time__ 
 * __queue_count__ - number of users who have the movie in their queue
 * __url__ - movie's GoWatchIt URL
 * __contributors__ - movie contributors such as director, writers, cast members etc. grouped by role
 * __trailer_url__ 
 * __special_caption__ reserved for displaying customized availability information.
-* __providers__ - a brief list of providers that currently have the movie available 
+* __current_providers__ - a brief list of providers that currently have the movie available 
 * __available__ - boolean flag indicating movie's availability status
-*__availabilities__ - movie availabilities grouped by the following categories: presale, theater, online & dvd
+* __availabilities__ - a collection of movie availabilities
 
 Each availability encapsulates
 * __format_line__ - formatted list of formats in which movie is available for a particular provider. Ex: "SD / HD"
@@ -51,8 +51,7 @@ Each availability encapsulates
 	* __dark__
 * __provider_format_id__ - provider-format's GoWatchIt ID
 * __watch_now_url__ - provider URL to the movie via GoWatchIt  
-* __direct_url__ - direct provider URL
-* __category__ - avilabilitie's category such as dvd, online etc.
+* __category__ - avilabilitie's category such as dvd, online, presale or theater.
 
 
 ### GET /api/v3/movies/:id/availabilities
@@ -60,7 +59,7 @@ Get availabilities for a movie. A lighter version of GET movies/:id that skips m
 
 #### Fields
 
-* __availabilities__ - movie availabilities grouped by the following categories: presale, theater, online & dvd. 
+* __availabilities__ - a collection of movie availabilities
 
 Each availability encapsulates
 * __format_line__ - formatted list of formats in which movie is available for a particular provider. Ex: "SD / HD"
@@ -72,7 +71,6 @@ Each availability encapsulates
 	* __dark__
 * __provider_format_id__ - provider-format's GoWatchIt ID
 * __watch_now_url__ - provider URL to the movie via GoWatchIt  
-* __direct_url__ - direct provider URL
 * __category__ - avilabilitie's category such as dvd, online etc.
 
 #### GET /api/v3/movies/:id/review
