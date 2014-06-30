@@ -73,6 +73,26 @@ Each availability encapsulates
 * __watch_now_url__ - provider URL to the movie via GoWatchIt  
 * __category__ - avilabilitie's category such as dvd, online etc.
 
+#### GET /api/v3/movies/:id/lite
+Get metadata for a movie (no availabilities). A lighter version of GET movies/:id that skips detailed availability info, but returns a brief list of providers that currently have the movie available.
+
+#### Fields
+* __id__ - movie's GoWatchIt ID
+* __description__ - short description / synopsis
+* __title__
+* __poster_url__ 
+* __year__ - year of release
+* __genre__
+* __pg_rating__ - parental guidelines rating ([MPAA](http://www.mpaa.org/film-ratings/)) 
+* __run_time__ 
+* __queue_count__ - number of users who have the movie in their queue
+* __url__ - movie's GoWatchIt URL
+* __contributors__ - movie contributors such as director, writers, cast members etc. grouped by role
+* __trailer_url__ 
+* __special_caption__ reserved for displaying customized availability information.
+* __current_providers__ - a brief list of providers that currently have the movie available 
+* __available__ - boolean flag indicating movie's availability status
+
 #### GET /api/v3/movies/:id/review
 Returns a paginated list of all user reviews for a movie.
 
@@ -88,6 +108,9 @@ Allows users to review movies. Requires the user to be logged-in.
 #### Parameters
 * __star_rating__ (required) - a user rating between 1 and 5
 * __review__ (optional) - a text review
+
+ 
+
 
 
 
